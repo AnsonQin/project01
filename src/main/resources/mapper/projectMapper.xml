@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.bhinfocenter.project.dao.ProjectDao">
+    <insert id="addProject" parameterType="com.bhinfocenter.project.pojo.Project">
+        insert into projectTest(projectName,projectCode,projectType,projectStatus)
+        values(#{projectName},#{projectCode},#{projectType},#{projectStatus})
+    </insert>
+
+    <delete id="deleteProject" parameterType="long">
+        delete from projectTest where projectID = #{projectID}
+    </delete>
+
+    <update id="updateProject" parameterType="com.bhinfocenter.project.pojo.Project">
+        update projectTest set projectName =#{projectName},projectCode=#{projectCode},
+                           projectType=#{projectType},projectStatus=#{projectStatus}
+        where projectID = #{projectID}
+    </update>
+
+    <select id="getByID" parameterType="long" resultType="com.bhinfocenter.project.pojo.Project">
+        select * from projectTest where projectID = #{projectID}
+    </select>
+
+    <select id="getAll" resultType="com.bhinfocenter.project.pojo.Project">
+        select * from projectTest
+    </select>
+
+    <select id="getByDim" parameterType="com.bhinfocenter.project.pojo.Project" resultType="com.bhinfocenter.project.pojo.Project">
+        select * from projectTest
+         where
+        (projectName LIKE '%${projectName}%')
+        or (projectCode LIKE '%${projectCode}%')
+        or (projectType LIKE '%${projectType}%')
+        or (projectStatus LIKE '%${projectStatus}%')
+    </select>
+
+
+
+</mapper>
